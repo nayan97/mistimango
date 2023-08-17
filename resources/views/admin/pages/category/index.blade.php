@@ -5,7 +5,7 @@
 						<div class="col-md-8">
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Your Skills</h4>
+									<h2 class="card-title">Add Post Category</h2>
 								</div>
 								<div class="card-body">
                                     
@@ -21,7 +21,7 @@
                                         <tbody>
                                       
 
-                                        @forelse ($skills as $item)
+                                        @forelse ($cat as $item)
                                         <tr>
                                             <td>{{$loop ->index + 1}}</td>
                                             <td>{{$item -> name}}</td>
@@ -29,11 +29,11 @@
                                             <td>{{$item -> created_at -> diffForHumans()}}</td>
                                             <td>
                                                 <!----<a class="btn btn-sm btn-info" href="#"><i class="fe fe-eye"></i></a>-->
-                                                <a class="btn btn-sm btn-warning" href="{{ route('skills.edit', $item -> id)}}"><i class="fe fe-edit"></i></a>
-                                                <form onclick="return confirm('Are you sure to delete this')" action="{{ route('skills.destroy', $item ->      id ) }}" class="d-inline delete-form" method="POST">
+                                                <a class="btn btn-sm btn-warning" href="{{ route('category.edit', $item -> id)}}"><i class="fe fe-edit"></i></a>
+                                                <form onclick="return confirm('Are you sure to delete this')" action="{{ route('category.destroy', $item ->      id ) }}" class="d-inline delete-form" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                    <button class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i></button>
+                                                    <button style="background-color:red" class="btn btn-sm btn-danger" type="submit"><i class="fa fa-trash"></i></button>
                                                 </form>
                                             </td>
                                        </tr> 
@@ -58,21 +58,22 @@
                             @if( $type === 'add')
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title">Add new Data</h4>
+									<h3 class="card-title">Add new Data</h3>
+                                 
 								</div>
 								<div class="card-body">
 
 
                                 @include('validate')
-									<form action="{{ route('skills.store')}}" method="POST">
+									<form action="{{ route('category.store')}}" method="POST">
                                         @csrf
 										<div class="form-group">
-											<label>Skills</label>
+											<label>Post Category</label>
 											<input name="name" type="text" class="form-control">
                                         </div>                                      
 									
 										<div class="text-right">
-											<button type="submit" class="btn btn-primary">Submit</button>
+											<button style="background-color:#00ccff" type="submit" class="btn btn-primary">Submit</button>
 										</div>
 									</form>
 								</div>
@@ -82,19 +83,24 @@
                             @if( $type === 'edit')
 							<div class="card">
 								<div class="card-header">
-									<h4 class="card-title"> Edit Data</h4>
+                                    <div class="text-right">
+                                          <a class="text-center btn btn-primary my-2" href="{{ route('category.index')}}">Back</a>
+                                    </div>
+                                     
+									<h4 class="card-title"> Edit Data </h4>
+                                    
 								</div>
 								<div class="card-body">
-                              
-								<form action="{{ route('skills.update', $skill -> id )}}" method="POST">
+                                @include('validate')
+								<form action="{{ route('category.update', $cats -> id )}}" method="POST">
                                         @csrf
                                         @method('PUT')
 										<div class="form-group">
 											<label>Name</label>
-											<input name="name" value="{{$skill -> name}}" type="text" class="form-control">
+											<input name="name" value="{{$cats -> name}}" type="text" class="form-control">
                                         </div>
 										<div class="text-right">
-											<button type="submit" class="btn btn-primary">Update</button>
+											<button style="background-color:#00ccff" type="submit" class="btn btn-primary">Update</button>
 										</div>
 									</form>
 								</div>

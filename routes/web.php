@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +29,7 @@ Route::middleware([
 
 
 Route::get('/redirect',[HomeController::class, 'redirect']);
+
+
+Route::resource('/category', CategoryController::class);
+Route::resource('/post', PostController::class);

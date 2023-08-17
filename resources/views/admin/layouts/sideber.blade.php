@@ -10,10 +10,10 @@
 							</li>
 				
 							<li> 
-								<a href="reviews.html"><i class="fe fe-star-o"></i> <span>Category</span></a>
+								<a href="{{ route('category.index')}}"><i class="fe fe-star-o"></i> <span>Category</span></a>
 							</li>
 							<li> 
-								<a href="transactions-list.html"><i class="fe fe-activity"></i> <span>Transactions</span></a>
+								<a href="{{ route('post.index')}}"><i class="fe fe-activity"></i> <span>Posts</span></a>
 							</li>
 							<li> 
 								<a href="settings.html"><i class="fe fe-vector"></i> <span>Settings</span></a>
