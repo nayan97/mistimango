@@ -16,11 +16,10 @@
                                         <thead> 
                                                 <tr>
                                                 <td>#</td>
-                                                <td>Name</td>
-                                                <td>Stack</td>
-                                                <td>Skill</td>
+                                                <td>Title</td>
+                                                <td>category</td>
+                                                <td>Content</td>
                                                 <td>photo</td>
-                            
                                                 <td>Created at</td>
                                                 <td>Action</td>
                                             </tr>
@@ -31,19 +30,14 @@
                                         @forelse ($post as $item)
                                         <tr>
                                             <td>{{$loop ->index + 1}}</td>
-                                            <td>{{$item -> name}}</td>
-                                            <td>{{$item -> stack}}</td>
+                                            <td>{{$item -> title}}</td>
+                                            <td>
                                           
-                                            <td> 
-                                                <ul>
-                                                     @forelse (json_decode($item -> cats) as $kaj) 
-                                                        <li style="">{{ $kaj }},</li>
-                                                    @empty
-                                                    @endforelse
-                                                 
-                                                </ul>
                                             </td>
-                                            <td><img style="width: 60px; height: 60px; object-fit: cover;" src="{{ url('storage/staff/' . $item -> photo)}}" alt=""></td>
+                                            <td>{!! Str::of(htmlspecialchars_decode($item -> content)) -> words(8) !!}</td>
+                                            <td>
+                                                <img style="width: 60px; height: 60px; object-fit: cover;" src="{{ url('img/post/' . $item -> photo ) }}" alt="">
+                                            </td>
                                             <td>{{$item -> created_at -> diffForHumans()}}</td>
                                             <td>
                                                 <!----<a class="btn btn-sm btn-info" href="#"><i class="fe fe-eye"></i></a>-->
@@ -88,26 +82,18 @@
 											<input name="title" type="text" class="form-control">
                                         </div>
                                         <div class="form-group">
-											<label>Stack</label>
-											<input name="stack" type="text" class="form-control">
-                                        </div>
-                                        <div class="form-group">
 											<label>Content</label>
-											<textarea name="profile" rows="4" cols="50">
-                                            </textarea >  
+											<textarea name="content" rows="4" cols="50"></textarea >  
                                         </div>
                                  
                                         <div class="form-group">
 											<label>Categores</label>  
-                                            <ul style="list-style:none;" class="">
-                                               
-                                            @foreach ($cats as $cat)
-													<li style="margin-left:-30px"> 
-														<label><input name="skills[]" value="{{ $cat-> name }}" type="checkbox"> {{ $cat -> name }}</label> 
-													</li>
-												@endforeach
-											</ul>                      
-										
+                    							<select name="cats" id="">
+                                                            <option value="">Select Caregory</option>
+                                                   @foreach ($cats as $cat)
+                                                          <option value="{{ $cat -> id}}">{{ $cat -> name}}</option>
+                                                    @endforeach
+                                                </select>                   
 										</div>   
                                         <div class="form-group">
 											<label>Photo</label>
@@ -130,55 +116,32 @@
 								</div>
 								<div class="card-body">
 
-									<form action="{{ route('staffs.update', $staff-> id)}}" method="POST" enctype="multipart/form-data">
+									<form action="{{ route('post.update', $posts-> id)}}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
 										<div class="form-group">
 											<label>Name</label>
-											<input name="name" value="{{ $staff -> name}}" type="text" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-											<label>Stack</label>
-											<input name="stack" value="{{ $staff -> stack}}" type="text" class="form-control">
-
+											<input name="title" value="{{ $posts -> title}}" type="text" class="form-control">
                                         </div>
                                         <div class="form-group">
 											<label>Profile Description</label>
-											<textarea name="profile" rows="4" cols="50">{{ $staff -> profile}}</textarea >  
+											<textarea name="content" rows="4" cols="50">{{ $posts -> content}}</textarea >  
                                         </div>
-                                         
                                         <div class="form-group">
-											<label>Gender</label><br>
-
-
-											<input name="gender" type="radio" value="male" @if ($staff->gender == "male")checked 
-                                                
-                                            @endif>Male
-                                            <br>
-                                            <input name="gender" type="radio" value="female" @if ($staff->gender == "male")checked 
-                                                
-                                                @endif">Female
-                                        </div>
-                                      
-                                        <div class="form-group">
-											<label>Skills</label>                        
-											<ul>
-                                           
-
-                                                @forelse ( json_decode($skill)  as $skills)
-                                                    <li>
-                                                        <label><input @if( in_array($skills -> name, json_decode($staff -> skills)) ) checked @endif name="skills[]" value="{{ $skills -> name }}" type="checkbox"> {{$skills -> name}}</label>
-                                                    </li>                                
-                                                @empty
-                                                    <li>No record found</li>
-                                                @endforelse
-												
-											</ul>
+											<label>Categores</label>  
+                    							<select name="cats" id="">
+                                                    <option value=""> Select Category</option>
+                                                   @foreach ($cats as $cat)
+                                                          <option value="{{ $cat -> id}}" {{$posts->category_id == $cat->id ? 'selected':''}}>
+                                                            {{ $cat -> name}}
+                                                        </option>
+                                                    @endforeach
+                                                </select>                   
 										</div>  
                                         <div class="form-group">
 											<label>Photo</label>
                                             <br>
-                                            <img style="width: 60px; height: 60px; object-fit: cover;" src="{{ url('storage/staff/' . $staff -> photo)}}" alt="">
+                                            <img style="width: 60px; height: 60px; object-fit: cover;" src="{{ url('img/post/' . $posts -> photo ) }}" alt="">
 										    <input name="photo" type="file">
                                         </div>
 										<div class="text-right">
