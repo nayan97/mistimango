@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -19,6 +20,16 @@ class HomeController extends Controller
     }
 
     public function index(){
-        return view('frontend.homepage');
+         return view('frontend.homepage');
     }
+    
+
+    public function showSingleBlog($slug) {
+        $posts=Post::where('slug',$slug) ->first();
+         return view('frontend.singleblog', [
+         'posts'    => $posts
+         ]);
+    }
+
+
 }

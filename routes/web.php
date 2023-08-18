@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/',[HomeController::class, 'index']);
+Route::get('/blog{slug}',[HomeController::class, 'showSingleBlog'])->name('single.blog');
 
 Route::get('/home',[HomeController::class, 'home'])->name('home');
 
