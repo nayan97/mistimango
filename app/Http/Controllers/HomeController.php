@@ -9,9 +9,9 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
-    public function redirect() {
+    public function home() {
         $usertype=Auth::user() -> usertype;
-        if ($usertype =='1') {
+        if ($usertype =='admin') {
             return view('admin.pages.dashboard');
         }else{
             return view('frontend.homepage');

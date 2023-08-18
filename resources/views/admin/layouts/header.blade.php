@@ -109,13 +109,12 @@
                     <div class="avatar avatar-sm ml-3">
                                 <img src="admin/assets/img/profiles/avatar-01.jpg" alt="User Image" class="avatar-img rounded-circle">
 </div>
+                </li>
                                 
-                                   <li>  <x-app-layout>
+                <x-app-layout>
 
-                                    </x-app-layout>
-</li>
-                                
-                                     
+                </x-app-layout>
+         
                      
                   
                 </li>

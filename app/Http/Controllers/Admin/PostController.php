@@ -127,7 +127,7 @@ class PostController extends Controller
                     ]);
             
                    
-                    $posts -> category() -> attach($request->cats);
+                    // $posts -> category() -> attach($request->cats);
             
                     return back()->with('success', 'Data add successfuly');
     }

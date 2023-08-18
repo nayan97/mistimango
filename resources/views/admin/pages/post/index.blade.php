@@ -32,7 +32,10 @@
                                             <td>{{$loop ->index + 1}}</td>
                                             <td>{{$item -> title}}</td>
                                             <td>
-                                          
+                                                
+                                                        
+                                                            {{$item -> category_id}}
+                                                          
                                             </td>
                                             <td>{!! Str::of(htmlspecialchars_decode($item -> content)) -> words(8) !!}</td>
                                             <td>
