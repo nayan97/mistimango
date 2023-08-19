@@ -26,12 +26,16 @@ class HomeController extends Controller
     
 
     public function showSingleBlog($slug) {
+     
+        $comment =Comment::where('perent_id',NULL)->get();
+        $reply =Comment::all();
+        // $reply =Comment::where('perent_id', '0' )->get();
 
-        $comment =Comment::all();
         $posts=Post::where('slug',$slug) ->first();
          return view('frontend.singleblog', [
          'posts'    => $posts,
-         'comment'  => $comment
+         'comment'  => $comment,
+         'reply'    => $reply
          ]);
     }
 

@@ -59,22 +59,14 @@
                             <!-- End Social Links -->
                   
                             <!-- End Post Author Detail -->
-                            <div class="post-navigation">
-                                <div class="nav nav-prev">
-                                    <a href="#" class="align-items-start text-left">
-                                        <span><i class="w-icon-long-arrow-left"></i>previous post</span>
-                                        <span class="nav-content mb-0 text-normal">Vivamus vestibulum ntulla nec ante</span>
-                                    </a>
-                                </div>
-                                <div class="nav nav-next"> 
-                                    <a href="#" class="align-items-end text-right">
-                                        <span>next post<i class="w-icon-long-arrow-right"></i></span>
-                                        <span class="nav-content mb-0 text-normal">Fusce lacinia arcuet nulla</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- End Post Navigation -->
-                            <h4 class="title title-lg font-weight-bold mt-10 pt-1 mb-5">Related Posts</h4>
+              
+                            @php
+                            $repost = App\Models\Post::latest() -> take(3) -> get();
+            
+                            @endphp
+
+
+                            <h4 class="title title-lg font-weight-bold mt-10 pt-1 mb-5">Recent Posts</h4>
                             <div class="swiper">
                                 <div class="post-slider swiper-container swiper-theme nav-top pb-2 swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events" data-swiper-options="{
                                     'spaceBetween': 20,
@@ -95,74 +87,50 @@
                                     }
                                 }">
                                     <div class="swiper-wrapper " id="swiper-wrapper-1bea272b22ffffde" aria-live="polite" style="transform: translate3d(0px, 0px, 0px);">
+                                        @foreach ( $repost as $item)
+                                            
+                                      
                                         <div class="swiper-slide post post-grid swiper-slide-active" role="group" aria-label="1 / 4" style="width: 296.667px; margin-right: 20px;">
                                             <figure class="post-media br-sm">
-                                                <a href="post-single.html">
-                                                    <img src="assets/images/blog/single/2.jpg" alt="Post" width="296" height="190" style="background-color: #bcbcb4;">
+                                                <a href="{{ route('single.blog', $item-> slug)}}">
+                                                    <img src=" {{ url('img/post/'.$item-> photo)}}" alt="Post" width="296" height="190" style="background-color: #bcbcb4;">
                                                 </a>
                                             </figure>
                                             <div class="post-details text-center">
                                                 <div class="post-meta">
                                                     by <a href="#" class="post-author">Logan Cee</a>
-                                                    - <a href="#" class="post-date">03.05.2021</a>
+                                                    - <a href="#" class="post-date">{{ date('F d, Y ', strtotime($item -> created_at))}}</a>
                                                 </div>
-                                                <h4 class="post-title mb-3"><a href="post-single.html">Fashion tell about who you are from...</a></h4>
-                                                <a href="post-single.html" class="btn btn-link btn-dark btn-underline font-weight-normal">Read More<i class="w-icon-long-arrow-right"></i></a>
+                                                <h4 class="post-title mb-3"><a href="{{ route('single.blog', $item-> slug)}}">{{$item->title}}...</a></h4>
+                                                <a href="{{ route('single.blog', $item-> slug)}}" class="btn btn-link btn-dark btn-underline font-weight-normal">Read More<i class="w-icon-long-arrow-right"></i></a>
                                             </div>
                                         </div>
-                                        <div class="swiper-slide post post-grid swiper-slide-next" role="group" aria-label="2 / 4" style="width: 296.667px; margin-right: 20px;">
-                                            <figure class="post-media br-sm">
-                                                <a href="post-single.html">
-                                                    <img src="assets/images/blog/single/3.jpg" alt="Post" width="296" height="190" style="background-color: #cad2d1;">
-                                                </a>
-                                            </figure>
-                                            <div class="post-details text-center">
-                                                <div class="post-meta">
-                                                    by <a href="#" class="post-author">Hilary Kreton</a>
-                                                    - <a href="#" class="post-date">03.05.2021</a>
-                                                </div>
-                                                <h4 class="post-title mb-3"><a href="post-single.html">Comes a cool blog post with Images</a></h4>
-                                                <a href="post-single.html" class="btn btn-link btn-dark btn-underline font-weight-normal">Read More<i class="w-icon-long-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide post post-grid" role="group" aria-label="3 / 4" style="width: 296.667px; margin-right: 20px;">
-                                            <figure class="post-media br-sm">
-                                                <a href="post-single.html">
-                                                    <img src="assets/images/blog/single/4.jpg" alt="Post" width="296" height="190" style="background-color: #ececec;">
-                                                </a>
-                                            </figure>
-                                            <div class="post-details text-center">
-                                                <div class="post-meta">
-                                                    by <a href="#" class="post-author">Casper Dailn</a>
-                                                    - <a href="#" class="post-date">03.05.2021</a>
-                                                </div>
-                                                <h4 class="post-title mb-3"><a href="post-single.html">Comes a cool blog post with Images</a></h4>
-                                                <a href="post-single.html" class="btn btn-link btn-dark btn-underline font-weight-normal">Read More<i class="w-icon-long-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide post post-grid" role="group" aria-label="4 / 4" style="width: 296.667px; margin-right: 20px;">
-                                            <figure class="post-media br-sm">
-                                                <a href="post-single.html">
-                                                    <img src="assets/images/blog/single/5.jpg" alt="Post" width="296" height="190" style="background-color: #AFAFAF;">
-                                                </a>
-                                            </figure>
-                                            <div class="post-details text-center">
-                                                <div class="post-meta">
-                                                    by <a href="#" class="post-author">John Doe</a>
-                                                    - <a href="#" class="post-date">03.05.2021</a>
-                                                </div>
-                                                <h4 class="post-title mb-3"><a href="post-single.html">We want to be different and fashion gives to me that outlet</a></h4>
-                                                <a href="post-single.html" class="btn btn-link btn-dark btn-underline font-weight-normal">Read More<i class="w-icon-long-arrow-right"></i></a>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                     <button class="swiper-button-next" tabindex="0" aria-label="Next slide" aria-controls="swiper-wrapper-1bea272b22ffffde" aria-disabled="false"></button>
                                     <button class="swiper-button-prev swiper-button-disabled" disabled="" tabindex="-1" aria-label="Previous slide" aria-controls="swiper-wrapper-1bea272b22ffffde" aria-disabled="true"></button>
                                 <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
                             </div>
                             <!-- End Related Posts -->
+
+                            <div class="post-navigation">
+                                <div class="nav nav-prev">
+                                    <a href="#" class="align-items-start text-left">
+                                        <span><i class="w-icon-long-arrow-left"></i>previous post</span>
+                                        <span class="nav-content mb-0 text-normal">Vivamus vestibulum ntulla nec ante</span>
+                                    </a>
+                                </div>
+                                <div class="nav nav-next"> 
+                                    <a href="#" class="align-items-end text-right">
+                                        <span>next post<i class="w-icon-long-arrow-right"></i></span>
+                                        <span class="nav-content mb-0 text-normal">Fusce lacinia arcuet nulla</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- End Post Navigation -->
                             
-                            <h4 class="title title-lg font-weight-bold pt-1 mt-10">3 Comments</h4>
+                            
+                            <h4 class="title title-lg font-weight-bold pt-1 mt-10">{{count($comment)}} Comments</h4>
                             <ul class="comments list-style-none pl-0">
                                 <li class="comment">
                                     @foreach ($comment as $comment )
@@ -183,18 +151,23 @@
                                 </li>
                                 <li class="comment">
 
-                                    {{-- @foreach ( $comment as $comment  )
+                                    {{-- @foreach ($reply as $comment  )
                                     <div class="comment-body">
                                         <div class="comment-content">
                                             <h4 class="comment-author font-weight-bold">
                                                 <a href="#">Semi Colon</a>
-                                                <span class="comment-date">{{ date('F d, Y ', strtotime($comment -> created_at))}}</span>
-                                            </h4>
-                                            <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales.</p>
+                                                {{-- <span class="comment-date">{{ date('F d, Y ', strtotime($comment->created_at))}}</span> --}}
+                                            {{-- </h4>
+                                            
                                             <a href="#" class="btn btn-dark btn-link btn-underline btn-icon-right btn-reply">Reply<i class="w-icon-long-arrow-right"></i></a>
                                         </div>  
-                                    </div>
-                                    @endforeach --}}
+                                    </div> --}}
+                                    {{-- @endforeach  --}}
+
+                                    {{-- <p>@foreach ($comment  as $com )
+                                        {{$comm->comments}}
+                                        @endforeach</p> --}}
+                                    
                             
                                 </li>
                             </ul>
@@ -210,12 +183,12 @@
                                         </div>
                                         <br>
                                         <div class="form-group">
-                                            <button type="submit" class="btn btn-dark btn-rounded btn-icon-right btn-comment">Post Comment<i class="w-icon-long-arrow-right"></i></button>
+                                            <button style="background-color:#336699; type="submit" class="btn btn-dark btn-rounded btn-icon-right btn-comment">Post Comment<i class="w-icon-long-arrow-right"></i></button>
                                         </div>
                                 </form>
                             </div>
                             <form method="post" action="{{ route('comment.add')}}" class="reply-section pb-4">
-                                <h4 class="title title-md font-weight-bold pt-1 mt-10 mb-0">Leave a Reply</h4>
+                                <h4 class="title title-md font-weight-bold pt-1 mt-10 mb-0">Leave a comment</h4>
                                 @csrf
                                     <div class="form-group">
                                         <textarea name="comments" id="" cols="20" rows="10"></textarea>
@@ -223,7 +196,7 @@
                                     </div>
                                     <br>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-dark btn-rounded btn-icon-right btn-comment">Post Comment<i class="w-icon-long-arrow-right"></i></button>
+                                        <button style="background-color:#336699;" type="submit" class="btn btn-dark btn-rounded btn-icon-right btn-comment">Post Comment<i class="w-icon-long-arrow-right"></i></button>
                                     </div>
                             </form>
                         </div>
