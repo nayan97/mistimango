@@ -23,6 +23,9 @@
                     <div class="row gutter-lg">
                         <div class="main-content post-single-content">
                             <div class="post post-grid post-single">
+                                <h1> @if (session()->has('message'))
+                                         [{{ Session::get('message') }}]
+                                     @endif</h1>
                                 <figure class="post-media br-sm">
                                     <img src="{{ url('img/post/' . $posts -> photo ) }}" alt="Blog" width="930" height="500">
                                 </figure>
@@ -162,67 +165,66 @@
                             <h4 class="title title-lg font-weight-bold pt-1 mt-10">3 Comments</h4>
                             <ul class="comments list-style-none pl-0">
                                 <li class="comment">
+                                    @foreach ($comment as $comment )
+                                        
+                                  
                                     <div class="comment-body">
-                                        <figure class="comment-avatar">
-                                            <img src="assets/images/blog/single/1.png" alt="Avatar" width="90" height="90">
-                                        </figure>
                                         <div class="comment-content">
+
                                             <h4 class="comment-author font-weight-bold">
                                                 <a href="#">John Doe</a>
-                                                <span class="comment-date">Aug 23, 2021 at 10:46 am</span>
+                                                <span class="comment-date">{{ date('F d, Y ', strtotime($comment -> created_at))}}</span>
                                             </h4>
-                                            <p>Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl.arcu fer
-                                                ment umet, dapibus sed, urna.</p>
-                                            <a href="#" class="btn btn-dark btn-link btn-underline btn-icon-right btn-reply">Reply<i class="w-icon-long-arrow-right"></i></a>
+                                            <p>{{$comment -> comments}}</p>
+                                            <a href="javascript::void(0);" onclick="reply(this)" class="btn btn-dark btn-link btn-underline btn-icon-right btn-reply">Reply<i class="w-icon-long-arrow-right"></i></a>
                                         </div>
                                     </div>
+                                    @endforeach
                                 </li>
                                 <li class="comment">
+
+                                    {{-- @foreach ( $comment as $comment  )
                                     <div class="comment-body">
-                                        <figure class="comment-avatar">
-                                            <img src="assets/images/blog/single/2.png" alt="Avatar" width="90" height="90">
-                                        </figure>
                                         <div class="comment-content">
                                             <h4 class="comment-author font-weight-bold">
                                                 <a href="#">Semi Colon</a>
-                                                <span class="comment-date">Aug 24, 2021 at 13:25 am</span>
+                                                <span class="comment-date">{{ date('F d, Y ', strtotime($comment -> created_at))}}</span>
                                             </h4>
                                             <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales.</p>
                                             <a href="#" class="btn btn-dark btn-link btn-underline btn-icon-right btn-reply">Reply<i class="w-icon-long-arrow-right"></i></a>
                                         </div>  
                                     </div>
-                                </li>
-                                <li class="comment">
-                                    <div class="comment-body">
-                                        <figure class="comment-avatar">
-                                            <img src="assets/images/blog/single/1.png" alt="Avatar" width="90" height="90">
-                                        </figure>
-                                        <div class="comment-content">
-                                            <h4 class="comment-author font-weight-bold">
-                                                <a href="#">John Doe</a>
-                                                <span class="comment-date">Aug 23, 2021 at 10:46 am</span>
-                                            </h4>
-                                            <p>Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl.arcu fer
-                                                ment umet, dapibus sed, urna.</p>
-                                            <a href="#" class="btn btn-dark btn-link btn-underline btn-icon-right btn-reply">Reply<i class="w-icon-long-arrow-right"></i></a>
-                                        </div>
-                                    </div>
+                                    @endforeach --}}
+                            
                                 </li>
                             </ul>
                             <!-- End Comments -->
-                            <form class="reply-section pb-4">
+                            <div style="display:none;" class="replySec">
+                                <form method="post" action="{{ route('reply.add')}}" class="reply-section pb-4">
+                                    <h4 class="title title-md font-weight-bold pt-1 mt-10 mb-0">Leave a Reply</h4>
+                                    @csrf
+                                        <div class="form-group">
+                                            <textarea name="comments" id="" cols="22" rows="10"></textarea>
+                                            <input type="hidden" name="post_id" value="{{ $posts->id }}" />
+                                            <input type="hidden" name="comment_id" value="{{ $comment->id }}" />
+                                        </div>
+                                        <br>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-dark btn-rounded btn-icon-right btn-comment">Post Comment<i class="w-icon-long-arrow-right"></i></button>
+                                        </div>
+                                </form>
+                            </div>
+                            <form method="post" action="{{ route('comment.add')}}" class="reply-section pb-4">
                                 <h4 class="title title-md font-weight-bold pt-1 mt-10 mb-0">Leave a Reply</h4>
-                                <p>Your email address will not be published. Required fields are marked</p>
-                                <div class="row">
-                                    <div class="col-sm-6 mb-4">
-                                        <input type="text" class="form-control" placeholder="Enter Your Name" id="name">
+                                @csrf
+                                    <div class="form-group">
+                                        <textarea name="comments" id="" cols="20" rows="10"></textarea>
+                                        <input type="hidden" name="post_id" value="{{ $posts->id }}" />
                                     </div>
-                                    <div class="col-sm-6 mb-4">
-                                        <input type="text" class="form-control" placeholder="Enter Your Email" id="email_1">
+                                    <br>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-dark btn-rounded btn-icon-right btn-comment">Post Comment<i class="w-icon-long-arrow-right"></i></button>
                                     </div>
-                                </div>
-                                <textarea cols="30" rows="6" placeholder="Write a Comment" class="form-control mb-4" id="comment"></textarea>
-                                <button class="btn btn-dark btn-rounded btn-icon-right btn-comment">Post Comment<i class="w-icon-long-arrow-right"></i></button>
                             </form>
                         </div>
                         <!-- End of Main Content -->
