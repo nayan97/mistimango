@@ -20,6 +20,6 @@ class Post extends Model
 
     public function comments()
     {
-        return $this->morphMany(Comment::class, 'commentable')->whereNull('perent_id');
+        return $this->hasMany(Comment::class);
     }
 }

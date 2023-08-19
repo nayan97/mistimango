@@ -11,7 +11,7 @@ class Comment extends Model
 
     // protected $guarded = [];
     protected $fillable = [
-        'post_id', 'admin_id', 'comments'
+        'post_id', 'admin_id', 'comments', 'parent_id'
     ];
     
     public function user()
@@ -21,6 +21,11 @@ class Comment extends Model
     
     public function replies()
     {
-        return $this->hasMany(Comment::class, 'perent_id');
+        return $this->hasMany(Comment::class, 'parent_id');    
+    }
+
+    public function commentable()
+    {
+        return $this->belongsTo();
     }
 }

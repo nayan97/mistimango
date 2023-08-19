@@ -27,17 +27,17 @@
                                          [{{ Session::get('message') }}]
                                      @endif</h1>
                                 <figure class="post-media br-sm">
-                                    <img src="{{ url('img/post/' . $posts -> photo ) }}" alt="Blog" width="930" height="500">
+                                    <img src="{{ url('img/post/' . $post -> photo ) }}" alt="Blog" width="930" height="500">
                                 </figure>
                                 <div class="post-details">
                                     <div class="post-meta">
                                         by <a href="#" class="post-author">John Doe</a>
-                                        - <a href="#" class="post-date">{{ date('F d, Y ', strtotime($posts -> created_at))}}</a>
+                                        - <a href="#" class="post-date">{{ date('F d, Y ', strtotime($post -> created_at))}}</a>
                                         <a href="#" class="post-comment"><i class="w-icon-comments"></i><span>0</span>Comments</a>
                                     </div>
-                                    <h2 class="post-title"><a href="#">{{ $posts->title}}</a></h2>
+                                    <h2 class="post-title"><a href="#">{{ $post->title}}</a></h2>
                                     <div class="post-content">
-                                        <p>{!! Str::of(htmlspecialchars_decode($posts -> content))!!}</p>
+                                        <p>{!! Str::of(htmlspecialchars_decode($post -> content))!!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -130,12 +130,12 @@
                             <!-- End Post Navigation -->
                             
                             
-                            <h4 class="title title-lg font-weight-bold pt-1 mt-10">{{count($comment)}} Comments</h4>
+                            <h4 class="title title-lg font-weight-bold pt-1 mt-10">Comments</h4>
                             <ul class="comments list-style-none pl-0">
                                 <li class="comment">
-                                    @foreach ($comment as $comment )
+                                    
                                         
-                                  
+                                    @forelse ($post ->comments as $comment )
                                     <div class="comment-body">
                                         <div class="comment-content">
 
@@ -147,30 +147,11 @@
                                             <a href="javascript::void(0);" onclick="reply(this)" class="btn btn-dark btn-link btn-underline btn-icon-right btn-reply">Reply<i class="w-icon-long-arrow-right"></i></a>
                                         </div>
                                     </div>
-                                    @endforeach
+                                    @empty
+                                    @endforelse()
                                 </li>
-                                <li class="comment">
-
-                                    {{-- @foreach ($reply as $comment  )
-                                    <div class="comment-body">
-                                        <div class="comment-content">
-                                            <h4 class="comment-author font-weight-bold">
-                                                <a href="#">Semi Colon</a>
-                                                {{-- <span class="comment-date">{{ date('F d, Y ', strtotime($comment->created_at))}}</span> --}}
-                                            {{-- </h4>
-                                            
-                                            <a href="#" class="btn btn-dark btn-link btn-underline btn-icon-right btn-reply">Reply<i class="w-icon-long-arrow-right"></i></a>
-                                        </div>  
-                                    </div> --}}
-                                    {{-- @endforeach  --}}
-
-                                    {{-- <p>@foreach ($comment  as $com )
-                                        {{$comm->comments}}
-                                        @endforeach</p> --}}
-                                    
-                            
-                                </li>
-                            </ul>
+                     
+                         
                             <!-- End Comments -->
                             <div style="display:none;" class="replySec">
                                 <form method="post" action="{{ route('reply.add')}}" class="reply-section pb-4">
@@ -178,8 +159,8 @@
                                     @csrf
                                         <div class="form-group">
                                             <textarea name="comments" id="" cols="22" rows="10"></textarea>
-                                            <input type="hidden" name="post_id" value="{{ $posts->id }}" />
-                                            <input type="hidden" name="comment_id" value="{{ $comment->id }}" />
+                                            <input type="hidden" name="post_id" value="{{ $post->id }}" />
+                                            {{-- <input type="hidden" name="comment_id" value="{{ $comment->id }}" /> --}}
                                         </div>
                                         <br>
                                         <div class="form-group">
@@ -192,7 +173,7 @@
                                 @csrf
                                     <div class="form-group">
                                         <textarea name="comments" id="" cols="20" rows="10"></textarea>
-                                        <input type="hidden" name="post_id" value="{{ $posts->id }}" />
+                                        <input type="hidden" name="post_id" value="{{ $post->id }}"/>
                                     </div>
                                     <br>
                                     <div class="form-group">
